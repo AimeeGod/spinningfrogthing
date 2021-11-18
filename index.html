@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixiJS</title>
+    <script src="js/pixi.min.js"></script>
+    <script>
+        let app;
+
+        window.onload = function () {
+            app = new PIXI.Application(      //It creates a new application with PIXI for a blue background
+                {
+                    backgroundColor: 0x34ebd2
+                }
+
+            );
+            app.renderer.resize(window.innerWidth, window.innerHeight);       //Resizes app's dimensions to fit the browser window
+
+            app.renderer.view.style.position = 'absolute';
+            document.body.appendChild(app.view);           //Adds app to the window
+            const frog = new PIXI.Sprite.from("images/forg.png")        //Creates a new sprite with PIXI from the images folder
+            frog.anchor.set(0.5);            //Draws frog from centre
+            frog.x = window.innerWidth / 2
+            frog.y = window.innerHeight / 2
+            //Centres the frog by having the position be half of the window's width and height
+
+            function funkyFrog() {
+                frog.rotation += 800              //Increases rotation of frog by 25
+            }
+            app.ticker.add(frogLoop)       //Creates a ticker that runs every frame 
+            function frogLoop(delta) {          //Frog loop is run every frame
+                funkyFrog();            //Calls the function funky frog thereby increasing the frogs rotation
+            }
+
+
+            const Graphics = PIXI.Graphics;        //Declares a graphics constant for the renderer
+
+            const rectangle = new Graphics();           //Creates a new rectangle using the graphics method from PIXI
+            rectangle.beginFill(0xAA33BB);                     //Makes the colour of rectangle purple in hexadecimal
+            rectangle.drawRect(200, 200, 100, 120);                //Gives the co-ordinates for the vertices of the rectangle
+            rectangle.endFill();                                       //Stops filling the rectangle
+
+
+            const poly = new Graphics();
+            poly.beginFill(0xFF66FFF)
+                .drawPolygon([
+                    600, 50,
+                    800, 150,
+                    900, 300,
+                    400, 400,
+                ])
+                .endFill();
+
+            const circle = new Graphics();
+            circle.beginFill(0xaa224cc)
+                .drawCircle(440, 200, 80)
+                .endFill();
+
+            app.stage.addChild(rectangle, circle, poly, frog);     //Adds everything to the stage
+        }
+
+
+
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
